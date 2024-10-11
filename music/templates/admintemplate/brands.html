@@ -1,0 +1,90 @@
+
+
+{% extends 'admin_panel.html' %}
+{% load static %}
+
+{% block adminpack %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Brand List</title>
+	<!-- Include Bootstrap CSS stylesheet -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style>
+		/* Add custom styles here */
+	</style>
+</head>
+
+<body >
+	<div class="container">
+		
+		<h1>Brand List</h1>
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<form method="GET" action="{% url 'CatSearch' %}">
+					<div class="input-group">
+						<input type="text" name="q" class="form-control" placeholder="Search...">
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-outline-secondary"><a ></a><i class="fas fa-search"></i>search</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6 text-right">
+				<a href="{% url 'addbrand' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add New Brand</a>
+			</div>
+		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Image</th>
+					<th>Name</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+        {% for x in brands %}
+				<tr>
+					<td>{{ forloop.counter }}</td>
+					<td><img src="/media/{{ x.brand_img }}" alt='{{x.brand_name}}' width="50" height="50"></td>
+					<td>{{  x.brand_name }}</td>
+					<td>
+						<div class="btn-group">
+							<a href="{% url 'update_brand' x.brand_id %}" class="btn btn-primary">Edit</a>
+							<a href="{% url 'deletebrand' x.id %}" class="btn btn-danger">Delete</a>
+						</div>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="row">
+			<div class="col-md-6">
+				<p>Showing {{ categories.start_index }} - {{ categories.end_index }} of {{ categories.total_count }} categories.</p>
+			</div>
+			<div class="col-md-6 text-right">
+				{% if categories.has_previous %}
+				<a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ categories.previous_page_number }}" class="btn btn-outline-secondary"><i class="fas fa-angle-left"></i> Previous</a>
+				{% endif %}
+				{% if categories.has_next %}
+				<a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ categories.next_page_number }}" class="btn btn-outline-secondary">Next <i class="fas fa-angle-right"></i></a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

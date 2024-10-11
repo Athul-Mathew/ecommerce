@@ -1,0 +1,102 @@
+{% extends 'admin_panel.html' %}
+{% load static %}
+
+{% block adminpack %}
+
+
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Edit Product</h5>
+        <div class="container-fluid">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    
+
+                    
+                    <input type="hidden" id="slug" name="slug" value="{{ slug }}">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Product Price</label>
+                            <input type="number" name="price" class="form-control" placeholder="Product Price" required>
+                        </div>
+                    </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>brand</label>
+                        <select name="brand" class="form-control" required>
+                            <option value="">Choose brand</option>
+                            {% for i in brand %}
+                            <option value="{{i.id}}">{{i.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>color</label>
+                        <select name="color" class="form-control" required>
+                            <option value="">Choose color</option>
+                            {% for i in color %}
+                            <option value="{{i.id}}">{{i.color}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Size</label>
+                        <select name="size" class="form-control" required>
+                            <option value="">Choose Size</option>
+                            {% for i in size %}
+                            <option value="{{i.id}}">{{i.prodectsizename}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>gender</label>
+                        <select name="gender" class="form-control" required>
+                            <option value="">Choose gender</option>
+                            {% for i in gender %}
+                            <option value="{{i.id}}">{{i.gender}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Product Image 1</label>
+                            <input type="file" name="image1" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Product Image 2</label>
+                            <input type="file" name="image2" class="form-control" required>
+                        </div>
+                    </div><div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Product Image 3</label>
+                            <input type="file" name="image3" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="desc" class="form-control" placeholder="write description here" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock  %}

@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+<!-- Offcanvas Menu End -->
+
+<!-- Header Section Begin -->
+
+
+
+
+<div style="padding-left: 5%;" class="shop__sidebar__search" >
+                            
+                        <form style="width: 40%; " action="{% url 'search' %}" method="get" ">
+                            <input type="text" placeholder="Search..." name="keyword">
+                            <button type="submit"><span class="icon_search"></span></button>
+                        </form>
+                    </div>
+
+
+
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3" style="background-color: transparent;">
+                <div class="shop__sidebar" style="background-color: transparent;">
+
+                    <div class="shop__sidebar__accordion" style="background-color: transparent;">
+                        <div class="accordion" id="accordionExample" style="background-color: transparent;">
+                            <div class="card" style="background-color: transparent;">
+                                <div class="card-heading" style="background-color: transparent;">
+                                    <a data-toggle="collapse" data-target="#collapseOne"
+                                        style="font-weight: bold; font-size: larger; color: black;">Categories</a>
+
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body" style="background-color: transparent;">
+                                        <div class="shop__sidebar__categories" style="background-color: transparent;">
+                                            <ul class="nice-scroll" style="background-color: transparent;">
+
+                                                {% for x in cat %}
+
+                                                <li><a href="{% url 'shop' %}?cat={{x.id}}"
+                                                        style="font-weight: bold; font-size: larger;color: black;">{{ x.category_name }}</a></li>
+
+                                                {% endfor %}
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" style="background-color: transparent;">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseTwo"
+                                        style="font-weight: bold; font-size: larger; color: black;">Branding</a>
+
+                                </div>
+                                <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__brand">
+                                            <ul>
+                                                {% for x in brands %}
+                                                <li><a href="{% url 'shop' %}?brand={{x.id}}"
+                                                        style="font-weight: bold; font-size: larger;color: black;">{{ x.brand_name}}</a></li>
+
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                
+
+                <div class="row">
+                    {% for x in use %}
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+
+                            <div class="product__item__pic set-bg" data-setbg="{{x.images1.url}}">
+
+                                <ul class="product__hover">
+                                    <li><a href="{% url 'add_wishlist' x.id %}"><img
+                                                src="{% static 'img/icon/heart.png' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'img/icon/compare.png' %}" alt="">
+                                            <span>Compare</span></a></li>
+                                    <li><a href="{% url 'shopdetails' x.id %}"><img
+                                                src="{% static 'img/icon/search.png' %}" alt=""></a></li>
+                                </ul>
+
+                            </div>
+                            <div class="product__item__text">
+                                <h6>{{x.product_name}}</h6>
+                                {% if x.stock %}
+                                <a href="{% url 'add_to_cart' x.id %}" class="add-cart">+ Add To Cart</a>
+                                {% else %}
+                                <a style="color: chartreuse;" href="{% url 'shop'  %}" class="add-cart">- out of stock</a>
+
+                                {% endif %}
+                                
+                                <h5>{{x.price}}</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+
+                <div class="flex-c-m flex-w w-full">
+                    <nav aria-label="page navigation sample">
+                        {% if use.has_other_pages %}
+                        <ul class="pagination">
+        
+                            {% if use.has_previous %}
+                            <li class="page-item "><a href="?page={{use.previous_page_number}}"
+                                    class="page-link text-dark">Previous</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                            {% endif %}
+        
+                            {% for i in use.paginator.page_range %}
+                            {% if use.number == i %}
+                            <li class="page-item active"><a href="#" class="page-link">{{i}}</a></li>
+                            {% else %}
+                            <li class="page-item"><a href="?page={{i}}" class="page-link text-dark">{{i}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+        
+                            {% if use.has_next %}
+                            <li class="page-item"><a href="?page={{use.next_page_number}}"
+                                    class="page-link text-dark p-lr-25">Next</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a href="#" class="page-link p-lr-25">Next</a></li>
+                            {% endif %}
+                        </ul>
+        
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Section End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                    </div>
+                    <p>The customer is at the heart of our unique business model, which includes design.</p>
+                    <a href="#"><img src="img/payment.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Clothing Store</a></li>
+                        <li><a href="#">Trending Shoes</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">Delivary</a></li>
+                        <li><a href="#">Return & Exchanges</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                <div class="footer__widget">
+                    <h6>NewLetter</h6>
+                    <div class="footer__newslatter">
+                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                        <form action="#">
+                            <input type="text" placeholder="Your email">
+                            <button type="submit"><span class="icon_mail_alt"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="footer__copyright__text">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <p>Copyright ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>2020
+                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+{% endblock %}

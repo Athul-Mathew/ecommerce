@@ -1,0 +1,66 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Order Management</title>
+</head>
+<body>
+  <h1>Admin Order Management</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Amount</th>
+        <th>Tracking ID</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>jane@example.com</td>
+        <td>555-1234</td>
+        <td>$50.00</td>
+        <td>123ABC</td>
+        <td>Processing</td>
+        <td>
+          <select onchange="changeStatus(this)">
+            <option value="processing">Processing</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+          </select>
+          <button onclick="cancelOrder(this)">Cancel</button>
+        </td>
+      </tr>
+      <!-- Add more order rows here -->
+    </tbody>
+  </table>
+
+  <script>
+    function changeStatus(select) {
+      // Get the selected status value
+      const status = select.value;
+
+      // Update the status column text
+      const statusColumn = select.parentElement.previousElementSibling;
+      statusColumn.textContent = status;
+
+      // TODO: Update the status in the database using AJAX
+    }
+
+    function cancelOrder(button) {
+      // Remove the row from the table
+      const row = button.parentElement.parentElement;
+      row.remove();
+
+      // TODO: Update the order status to "Canceled" in the database using AJAX
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<body>
+    
+       
+        <!-- Spinner End -->
+
+        {% if otp %}
+        <div class="container-fluid  p-0">
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <br><br><br><br><br><br><br><br> 
+                    {% for message in messages %}
+                    <div class="alert alert-warning col-8 shadow mx-auto text-danger" role="alert">
+                      {{message}}
+                    </div>
+                      {% endfor %}
+
+                      <br>
+                    <h3>OTP Verification</h3>
+                    <form  action="" method="post"  >
+                        {% csrf_token %}
+                  
+                  <div class="form-group">
+                    <input type="hidden" name="usr" value="{{usr.username}}">
+                  </div>
+                  <div class="col-md-12 form-group" style="max-width:300px; margin-left:115px">
+                    <input type="text" class="form-control" id="name" name="otp" placeholder="Enter Your OTP" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Your OTP'">
+                  </div>
+                <div class="col-md-6 form-group" style=" margin-left:135px">
+                    <button type="submit" value="submit" class="primary-btn border-0 btn-sm margin-left:60px">Verify</button>
+                </div>    
+            
+                             
+          <div class="row justify-content-center my-2 px-5">
+           <i>
+            <a href="{% url 'register' %}?username={{ usr.username }}" class="text-dark"
+            onclick="ReSendOTP('{{ usr.username }}', 'resendOTPmess')">
+          <i id="resendOTPmess">Resend</i> OTP
+         </a>
+          </i> 
+                </div>
+              </form>
+
+            </div>
+          </div>
+          </div>
+        </div>
+    </div>
+</section>
+{% else %}
+        <!-- Sign Up Start -->
+        <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="col-md-6">
+                    <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <a href="index.html" class="">
+                                <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>BAT MUSIC</h3>
+                            </a>
+                            <h3>Sign Up</h3>
+                        </div>
+                        <form id="signup-form" action="" method="post" style="width:100%;">
+                            {% csrf_token %}
+                            <div class="col--12 form-group">
+                                <label for="username">Username</label>
+                                {{form.username}}
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="">Email</label>
+                                {{form.email}}
+                            </div>
+                            <div class="col-md-12 form-group">
+                                {{form.password1}}
+                            </div>
+                            <div class="col-md-12 form-group">
+                                {{form.password2}}
+                                
+                            </div>
+                            
+                            {% if messages %}
+                            <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                         {% endfor %}
+                          </ul>
+                         {% endif %}
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4" value="submit">Sign Up</button>
+
+                            <p class="text-center mb-0">Already have an Account? <a href="{% url 'login' %}">Sign In</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sign Up End -->
+    </div>
+    </div>
+    {% endif %}
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
+{% endblock %}

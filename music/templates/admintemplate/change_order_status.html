@@ -1,0 +1,27 @@
+
+{% extends 'admin_panel.html' %}
+{% load static %}
+
+
+{% block adminpack %}
+
+
+<h1>Change Order Status</h1>
+
+<form method="post">
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label for="order_status">Order Status</label>
+    <select id="order_status" name="order_status" class="form-control">
+      {% for status in statuses %}
+        <option value="{{ status.0 }}" {% if status.0 == order.order_status %}selected{% endif %}>{{ status.1 }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update Order Status</button>
+
+</form>
+
+{% endblock %}

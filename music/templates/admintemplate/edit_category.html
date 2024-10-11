@@ -1,0 +1,38 @@
+{% extends 'admin_panel.html' %}
+{% load static %}
+
+{% block adminpack %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+          <div class="card-header">
+            <h1 class="text-center font-weight-light my-4">Edit Category "{{ category.category_name }}"</h1>
+          </div>
+          <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="name" class="font-weight-bold">Name</label>
+                <input type="text" class="form-control py-4" id="name" name="name" value="{{ category.category_name }}">
+              </div>
+              <div class="form-group">
+                <label for="description" class="font-weight-bold">Description</label>
+                <textarea class="form-control py-4" id="description" name="description">{{ category.description }}</textarea>
+              </div>
+              <div class="form-group">
+                <label for="cat_image" class="font-weight-bold">Image</label>
+                <input type="file" class="form-control-file" id="cat_image" name="cat_image">
+              </div>
+              <div class="mt-4 mb-0">
+                <button type="submit" class="btn btn-primary btn-block py-3" style="background-color: #c4302b; border-color: #c4302b;">
+                  <span class="font-weight-bold">Save</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

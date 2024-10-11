@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>.login_box_img {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+  }
+  
+  .card-img-overlay {
+    margin-top: auto;reverse  
+  }
+  </style>
+<br><br><br><br>
+<section class="login_box_area section_gap">
+    <div class="container">
+        
+            
+            <div class="col-lg-6">
+                
+                <div class="login_form_inner">
+                    <br/>
+            <br/>
+            {% for message in messages %}
+            <div class="alert alert-warning col-8 shadow mx-auto text-danger" role="alert">
+              {{message}}
+            </div>
+              {% endfor %}
+            <br/>
+                    <h3>Log in to enter</h3>
+                    <br>
+                    <form class="row login_form" action="{% url 'login'%}" method="post" id="contactForm" >
+                    {% csrf_token %}
+
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control"  name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <button type="submit" value="submit" class="primary-btn">Log In</button>
+                            <a href="#">Forgot Password?</a>
+                        </div>
+
+                       
+                    
+                    
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br><br><br><br>
+<!--================End Login Box Area =================-->
+{% endblock content %}

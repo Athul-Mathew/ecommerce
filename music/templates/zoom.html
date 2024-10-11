@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <img class="zoom" src="{{ image_url }}" alt="Zoomed Image">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/jquery.elevatezoom.js' %}"></script>
+<script>
+  $(document).ready(function() {
+    $('.zoom').elevateZoom({
+      zoomType: "inner",
+      cursor: "crosshair",
+      zoomWindowFadeIn: 500,
+      zoomWindowFadeOut: 500
+    });
+  });
+</script>
+{% endblock %}
